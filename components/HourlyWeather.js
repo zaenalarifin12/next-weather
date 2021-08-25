@@ -9,8 +9,10 @@ export default function HourlyWeather({ hourlyWeather, timezone }) {
 
     const [dataHour, setDataHour] = useState([])
     const [suhu, setSuhu] = useState([])
+const [wind, setWind] = useState([])
 
     const [data, setData] = useState({})
+    const [dataAngin, setDataAngin] = useState({})
 
     const chart = () => {
         let a = [];
@@ -27,12 +29,31 @@ export default function HourlyWeather({ hourlyWeather, timezone }) {
 
         setDataHour(a)
         setSuhu(te)
-// 
+        setWind(wi)
+
         setData({
             labels: dataHour, // jam 
             datasets: [{
                 label: 'Suhu Celcius',
                 data: suhu,  //suhu
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    
+                ],
+                borderWidth: 1
+            },
+            ]
+        })
+// 
+        setDataAngin({
+            labels: dataHour, // jam 
+            datasets: [{
+                label: 'Kecepatan Angin',
+                data: wi,  //suhu
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     
@@ -54,10 +75,21 @@ export default function HourlyWeather({ hourlyWeather, timezone }) {
         <div>
             <h1>Hourly</h1>
 
+<button type="button" onClick={() => {
+    chart()
+}}>Tampilkan</button>
             <div>
 
                 <Line
                     data={data}
+                    width={`100%`}
+                    options={{ maintainAspectRatio: false }}
+                />
+            </div>
+
+            <div>
+            <Line
+                    data={dataAngin}
                     width={`100%`}
                     options={{ maintainAspectRatio: false }}
                 />
