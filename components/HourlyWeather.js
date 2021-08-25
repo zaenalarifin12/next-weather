@@ -9,40 +9,16 @@ export default function HourlyWeather({ hourlyWeather, timezone }) {
 
     const [dataHour, setDataHour] = useState([])
     const [suhu, setSuhu] = useState([])
-    const [data, setData] = useState({
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], // jam 
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],  //suhu
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                
-            ],
-            borderWidth: 1
-        },
-        {
-            label: '# of Votes asasas',
-            data: [22, 44, 3, 50, 2, 3],  //suhu
-            backgroundColor: [
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    })
-    const hour = () => {
+
+    const [data, setData] = useState({})
+
+    const chart = () => {
         let a = [];
         let te = [];
         let wi = [];
         hourlyWeather.forEach(weather => {
             let v = moment.unix(weather.dt).tz(ThisTimeZone, "US/Pacific").format("HH")
-            a.push(v)
+            a.push("JAM-"+v)
             let c = weather.temp.toFixed(0)
             te.push(c)
             let w = weather.wind_speed
@@ -51,12 +27,11 @@ export default function HourlyWeather({ hourlyWeather, timezone }) {
 
         setDataHour(a)
         setSuhu(te)
-
-        console.log(wi);
+// 
         setData({
-            labels: hour, // jam 
+            labels: dataHour, // jam 
             datasets: [{
-                label: 'Suhu',
+                label: 'Suhu Celcius',
                 data: suhu,  //suhu
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -68,23 +43,12 @@ export default function HourlyWeather({ hourlyWeather, timezone }) {
                 ],
                 borderWidth: 1
             },
-            // {
-            //     label: '# of Votes asasas',
-            //     data: [22, 44, 3, 50, 2, 3],  //suhu
-            //     backgroundColor: [
-            //         'rgba(255, 159, 64, 0.2)'
-            //     ],
-            //     borderColor: [
-            //         'rgba(255, 159, 64, 1)'
-            //     ],
-            //     borderWidth: 1
-            // }
             ]
         })
     }
 
     useEffect(() => {
-        hour()
+        chart()
     }, [])
     return (
         <div>
