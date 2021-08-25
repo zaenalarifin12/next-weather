@@ -1,10 +1,11 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/style.css'
 
 function MyApp({ Component, pageProps }) {
-  return(
-  <ChakraProvider>
+  return (
     <Component {...pageProps} />
-  </ChakraProvider>)
+  )
+
 }
 
 export default MyApp;

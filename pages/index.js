@@ -2,13 +2,14 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import cities from "../lib/city.list.json";
 import Link from "next/link";
+import { ListGroup } from 'react-bootstrap';
 
 export default function Home() {
   const [query, setQuery] = useState("");
   const [result, setResult] = useState([]);
 
   useEffect(() => {
-    return () => {};
+    return () => { };
   }, []);
 
   const onChange = (e) => {
@@ -42,29 +43,35 @@ export default function Home() {
 
   return (
     <div>
-      <div className="container">
-        <input type="text" placeholder="search city" onChange={onChange} />
+      <div className="container mt-4">
+        <input
+          type="text"
+          placeholder="search city"
+          onChange={onChange}
+          className="form-control"
+        />
 
         {query.length > 3 && (
-          <ul>
+
+          <ListGroup defaultActiveKey="#link1">
             {result.length > 0 ? (
               result.map((city) => {
                 return (
-                  <li key={city.slug}>
-                    <Link href={`/location/${city.slug}`}>
-                      <a>
-                        {city.name}
-                        {city.state ? `, ${city.state}` : ""}{" "}
-                        <span>({city.country})</span>
-                      </a>
-                    </Link>
-                  </li>
+                  <ListGroup.Item action href={`/location/${city.slug}`} key={city.slug}>
+                    <a>
+                      {city.name}
+                      {city.state ? `, ${city.state}` : ""}{" "}
+                      <span>({city.country})</span>
+                    </a>
+                  </ListGroup.Item>
                 );
               })
             ) : (
-              <li className="">Data Not Found</li>
+              <ListGroup.Item action href={`#`} key={city.slug}>
+              </ListGroup.Item>
             )}
-          </ul>
+          </ListGroup>
+
         )}
       </div>
     </div>
